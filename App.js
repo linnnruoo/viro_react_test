@@ -30,7 +30,7 @@ var sharedProps = {
 }
 
 // Sets the default scene you want for AR and VR
-var InitialARScene = require('./js/HelloWorldSceneAR');
+var InitialARScene = require('./js/ARCarDemo/ARCarDemo');
 var InitialVRScene = require('./js/HelloWorldScene');
 
 var UNSET = "UNSET";
@@ -91,6 +91,13 @@ export default class ViroSample extends Component {
 
             <Text style={localStyles.buttonText}>VR</Text>
           </TouchableHighlight>
+
+          <TouchableHighlight style={localStyles.buttons}
+            onPress={this._getExperienceButtonOnPress(UNSET)}
+            underlayColor={'#68a0ff'} >
+
+            <Text style={localStyles.buttonText}>HELLOW WORLD</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -100,7 +107,7 @@ export default class ViroSample extends Component {
   _getARNavigator() {
     return (
       <ViroARSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialARScene}} />
+        initialScene={{scene: InitialARScene}} onExitViro={this._exitViro} />
     );
   }
   
