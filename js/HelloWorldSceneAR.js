@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
+
 import {StyleSheet} from 'react-native';
+
 import {
-  ViroARScene,
-  ViroText,
-  ViroMaterials,
-  ViroBox,
-  Viro3DObject,
-  ViroAmbientLight,
-  ViroSpotLight,
-  ViroARPlaneSelector,
-  ViroNode,
-  ViroAnimations,
   ViroSceneNavigator,
   ViroScene,
+  ViroARScene,
+  ViroAmbientLight,
   Viro360Video,
   Viro360Image,
   ViroUtils,
@@ -20,43 +14,27 @@ import {
   ViroPortalScene,
   Viro3DObject,
 } from 'react-viro';
+
 var createReactClass = require('create-react-class');
-var HelloWorldSceneAR = createReactClass({
-  getInitialState() {
-    return {
-      text : "Initializing AR..."
-    };
-  },
+var MainScene = createReactClass({
 
   render: function() {
     return (
-      <ViroARScene onTrackingUpdated={()=>{this.setState({text : "Hello World!"})}}>
-        <ViroText text={this.state.text} scale={[.1, .1, .1]} height={1} width={4} position={[0, .5, -1]} style={styles.helloWorldTextStyle} />
-
-        <ViroAmbientLight color={"#ff9c00"} />
-        <ViroSpotLight innerAngle={5} outerAngle={90} direction={[0,-1,-.2]} position={[0, 3, 1]} color="#ffffff" castsShadow={true} />
-
-        <Viro3DObject
-          source={require('./res/samsung_led_tv/Samsung_LED_TV.obj')}
-          position={[0, .5, -1]}
-          scale={[.1, .1, .1]}
-          type="OBJ"
-          dragType="FixedDistance" onDrag={()=>{}}
-        />
-
+      <ViroARScene>
+      <ViroAmbientLight color="#ffffff" intensity={200}/>
+        <ViroPortalScene passable={true} dragType="FixedDistance" onDrag={()=>{}}>
+          <ViroPortal position={[0, 0, -1]} scale={[.1, .1, .1]}>
+            <Viro3DObject source={require('./ARPortals/portal_res/portal_ship/portal_ship.vrx')}
+              resources={[require('./ARPortals/portal_res/portal_ship/portal_ship_diffuse.png'),
+                          require('./ARPortals/portal_res/portal_ship/portal_ship_normal.png'),
+                          require('./ARPortals/portal_res/portal_ship/portal_ship_specular.png')]}
+              type="VRX"/>
+          </ViroPortal>
+          <Viro360Image source={require("./ARPortals/portal_res/360_island.jpg")} />
+        </ViroPortalScene>
       </ViroARScene>
     );
   },
 });
 
-var styles = StyleSheet.create({
-  helloWorldTextStyle: {
-    fontFamily: 'Arial',
-    fontSize: 50,
-    color: '#ffffff',
-    textAlignVertical: 'center',
-    textAlign: 'center',
-  },
-});
-
-module.exports = HelloWorldSceneAR;
+module.exports = MainScene;
