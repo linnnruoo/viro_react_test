@@ -19,6 +19,7 @@ import {
   ViroSphere,
   ViroSpotLight,
   ViroQuad,
+  ViroARPlaneSelector
 } from 'react-viro';
 
 var createReactClass = require('create-react-class');
@@ -44,6 +45,16 @@ var ARCarDemo = createReactClass({
         <ViroLightingEnvironment source={require('./res/tesla/garage_1k.hdr')}/>
         
         <ViroText text="Hello World!" width={2} height={2} position={[0, 0, -2]} style={localStyles.text} />
+
+        <ViroARPlaneSelector>
+          <Viro3DObject
+            source={require('./res/tesla/object_car.obj')}
+            resources={[require('./res/tesla/object_car.mtl')]}
+            position={[0, .1, 0]}
+            scale={[0, 0, 0]}
+            type="OBJ"
+            dragType="FixedDistance" onDrag={()=>{}} />
+        </ViroARPlaneSelector>
 
         <ViroARImageMarker target={"logo"} onAnchorFound={this._onAnchorFound} pauseUpdates={this.state.pauseUpdates}>
 
