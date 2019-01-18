@@ -91,6 +91,13 @@ export default class ViroSample extends Component {
 
             <Text style={localStyles.buttonText}>VR</Text>
           </TouchableHighlight>
+
+          <TouchableHighlight style={localStyles.buttons}
+            onPress={this._getExperienceButtonOnPress(UNSET)}
+            underlayColor={'#68a0ff'} >
+
+            <Text style={localStyles.buttonText}>HELLOW WORLD</Text>
+          </TouchableHighlight>
         </View>
       </View>
     );
@@ -100,7 +107,7 @@ export default class ViroSample extends Component {
   _getARNavigator() {
     return (
       <ViroARSceneNavigator {...this.state.sharedProps}
-        initialScene={{scene: InitialARScene}} />
+        initialScene={{scene: InitialARScene}} onExitViro={this._exitViro} />
     );
   }
   

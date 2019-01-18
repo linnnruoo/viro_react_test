@@ -2,10 +2,13 @@
 
 import React, { Component } from 'react';
 
-import {StyleSheet} from 'react-native';
+import {
+  StyleSheet,
+} from 'react-native';
 
 import {
   ViroARScene,
+  ViroText,
   ViroMaterials,
   ViroNode,
   ViroAnimations,
@@ -38,32 +41,13 @@ var ARCarDemo = createReactClass({
   render: function() {
     return (
       <ViroARScene>
-
         <ViroLightingEnvironment source={require('./res/tesla/garage_1k.hdr')}/>
+        
+        <ViroText text="Hello World!" width={2} height={2} position={[0, 0, -2]} style={localStyles.text} />
 
         <ViroARImageMarker target={"logo"} onAnchorFound={this._onAnchorFound} pauseUpdates={this.state.pauseUpdates}>
+
           <ViroNode scale={[0, 0, 0]} transformBehaviors={["billboardY"]} animation={{name:this.state.animName, run:this.state.playAnim,}}>
-            <ViroSphere materials={["white_sphere"]}
-              heightSegmentCount={20} widthSegmentCount={20} radius={.03}
-              position={[-.2, .25, 0]}
-              onClick={this._selectWhite}
-              animation={{name:"tapAnimation", run:this.state.tapWhite, onFinish:this._animateFinished}}
-              shadowCastingBitMask={0} />
-
-            <ViroSphere materials={["blue_sphere"]}
-              heightSegmentCount={20} widthSegmentCount={20} radius={.03}
-              position={[-.1, .25, 0]}
-              onClick={this._selectBlue}
-              animation={{name:"tapAnimation", run:this.state.tapBlue, onFinish:this._animateFinished}}
-              shadowCastingBitMask={0} />
-
-            <ViroSphere materials={["grey_sphere"]}
-              heightSegmentCount={20} widthSegmentCount={20} radius={.03}
-              position={[0, .25, 0]}
-              onClick={this._selectGrey}
-              animation={{name:"tapAnimation", run:this.state.tapGrey, onFinish:this._animateFinished}}
-              shadowCastingBitMask={0} />
-
             <ViroSphere materials={["red_sphere"]}
               heightSegmentCount={20} widthSegmentCount={20} radius={.03}
               position={[.1, .25, 0]}
@@ -236,6 +220,14 @@ ViroAnimations.registerAnimations({
     scaleSphereDown:{properties:{scaleX:1, scaleY:1, scaleZ:1,},
                   duration: 50, easing: "easeineaseout"},
     tapAnimation:[["scaleSphereUp", "scaleSphereDown"],]
+});
+
+var localStyles = StyleSheet.create({
+  text: {
+    color: '#ff9c00',
+    fontSize: 60,
+    textAlign: 'center',  
+  }
 });
 
 module.exports = ARCarDemo;
